@@ -41,7 +41,7 @@
     "prettier-styles": "prettier --write src/**/*.{css,scss}",
     "prettier": "prettier --write src/**/*.js",
     "size": "yarn run build && size-limit",
-    "start": "yarn run copy-examples && node dev-server.js",
+    "start": "node dev-server.js",
     "test:coverage": "yarn test -- --coverage",
     "test:watch": "react-scripts test",
     "test": "yarn jest src",

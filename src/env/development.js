@@ -65,7 +65,7 @@ import { Repeater } from '../examples/repeater';
 import { Table } from '../examples/table';
 import { TableCsv } from '../examples/table_csv';
 import { Ranker } from '../examples/ranker';
-import { Buckets } from '../examples/ranker_buckets';
+// import { Buckets } from '../examples/ranker_buckets';
 
 import { TimeSeries } from '../examples/timeseries';
 import { TimeSeriesSingle } from '../examples/timeseries_single';
@@ -76,7 +76,7 @@ import { ClassificationMixed } from '../examples/classification_mixed';
  */
 // import { AllTypes } from "../examples/all_types";
 
-const data = Buckets;
+const data = VideoClassification;
 
 function getData(task) {
   if (task && task.data) {

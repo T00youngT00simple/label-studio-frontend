@@ -10,6 +10,9 @@ export class LabelStudio extends Component {
 
   componentDidMount() {
     configureStore(this.props).then(({ store }) => {
+
+      console.log(this.props);
+
       this.store = store;
       window.Htx = this.store;
       this.setState({ initialized: true });

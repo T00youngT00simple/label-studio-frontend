@@ -11,7 +11,9 @@ export { ReactComponent as LsCommentUnresolved } from './comment-unresolved.svg'
 export { ReactComponent as LsParentLink } from './parent-link.svg';
 export { ReactComponent as LsAnnotation } from './annotation.svg';
 export { ReactComponent as LsGrid } from './grid.svg';
+export { ReactComponent as LsCross } from './cross.svg';
 export { ReactComponent as LsSettings } from './settings.svg';
+export { ReactComponent as LsSlack } from './slack.svg';
 export { ReactComponent as LsSettingsAlt } from './settings-alt.svg';
 export { ReactComponent as LsStar } from './star.svg';
 export { ReactComponent as LsStarOutline } from './star-outline.svg';

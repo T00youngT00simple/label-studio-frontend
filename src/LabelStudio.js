@@ -12,6 +12,8 @@ import { Hotkey } from './core/Hotkey';
 import defaultOptions from './defaultOptions';
 import { destroy } from 'mobx-state-tree';
 import { destroy as destroySharedStore } from './mixins/SharedChoiceStore/mixin';
+import { MultiProvider } from './providers/MultiProvider';
+import { ApiProvider } from './providers/ApiProvider'
 
 configure({
   isolateGlobalState: true,
@@ -63,10 +65,14 @@ export class LabelStudio {
     window.Htx = this.store;
 
     render((
-      <App
-        store={this.store}
-        panels={registerPanels(this.options.panels) ?? []}
-      />
+      <MultiProvider providers={[
+        <ApiProvider key="api"/>,
+      ]}>
+        <App
+          store={this.store}
+          panels={registerPanels(this.options.panels) ?? []}
+          />
+      </MultiProvider>
     ), rootElement);
 
     const destructor = () => {
