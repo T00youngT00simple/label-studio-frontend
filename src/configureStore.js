@@ -12,7 +12,7 @@ const getEnvironment = async () => {
 
 // Configure deafult store
 export const configureStore = async (params, events) => {
-  if (params.options?.secureMode) window.LS_SECURE_MODE = true;
+  // if (params.options?.secureMode) window.LS_SECURE_MODE = true;
 
   const env = await getEnvironment();
 
@@ -23,18 +23,21 @@ export const configureStore = async (params, events) => {
 
     params.config = config;
     params.task = task;
+
+  // set data to stringify
   } else if (params?.task) {
     params.task = env.getData(params.task);
   }
-  if (params.task?.id) {
-    params.taskHistory = [{ taskId: params.task.id, annotationId: null }];
-  }
+
+  // if (params.task?.id) {
+  //   params.taskHistory = [{ taskId: params.task.id, annotationId: null }];
+  // }
 
   const store = AppStore.create(params, {
     ...env.configureApplication(params),
     events,
   });
-
+  
   store.initializeStore({
     ...(params.task ?? {}),
     // allow external integrations to control when the app is fully hydrated

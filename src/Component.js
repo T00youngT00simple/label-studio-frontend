@@ -2,6 +2,8 @@ import { Component } from 'react';
 import App from './components/App/App';
 import { configureStore } from './configureStore';
 import { registerPanels } from './registerPanels';
+import { MultiProvider } from './providers/MultiProvider';
+import { ApiProvider } from './providers/ApiProvider'
 
 export class LabelStudio extends Component {
   state = {
@@ -10,9 +12,6 @@ export class LabelStudio extends Component {
 
   componentDidMount() {
     configureStore(this.props).then(({ store }) => {
-
-      console.log(this.props);
-
       this.store = store;
       window.Htx = this.store;
       this.setState({ initialized: true });
@@ -29,10 +28,14 @@ export class LabelStudio extends Component {
 
   render() {
     return this.state.initialized ? (
-      <App
-        store={this.store}
-        panels={registerPanels(this.props.panels) ?? []}
-      />
+      <MultiProvider providers={[
+        <ApiProvider key="api"/>,
+      ]}>
+        <App
+          store={this.store}
+          panels={registerPanels(this.props.panels) ?? []}
+        />
+      </MultiProvider>
     ) : null;
   }
 }

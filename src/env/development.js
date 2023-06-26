@@ -76,7 +76,7 @@ import { ClassificationMixed } from '../examples/classification_mixed';
  */
 // import { AllTypes } from "../examples/all_types";
 
-const data = VideoClassification;
+const data = VideoRectangles;
 
 function getData(task) {
   if (task && task.data) {
@@ -93,6 +93,8 @@ function getData(task) {
  * Get current config
  * @param {string} pathToConfig
  */
+
+// exchange xml to string
 async function getConfig(pathToConfig) {
   const response = await fetch(pathToConfig);
   const config = await response.text();

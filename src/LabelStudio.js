@@ -1,7 +1,6 @@
 import { render, unmountComponentAtNode } from 'react-dom';
 import App from './components/App/App';
 import { configureStore } from './configureStore';
-import { LabelStudio as LabelStudioReact } from './Component';
 import { registerPanels } from './registerPanels';
 import { configure } from 'mobx';
 import { EventInvoker } from './utils/events';
@@ -61,6 +60,10 @@ export class LabelStudio {
     const { store, getRoot } = await configureStore(this.options, this.events);
     const rootElement = getRoot(this.root);
 
+    // request get one task
+
+    console.log(store);
+
     this.store = store;
     window.Htx = this.store;
 
@@ -99,4 +102,3 @@ export class LabelStudio {
   }
 }
 
-LabelStudio.Component = LabelStudioReact;

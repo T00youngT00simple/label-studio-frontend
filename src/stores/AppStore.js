@@ -10,6 +10,9 @@ import Utils from '../utils';
 import { guidGenerator } from '../utils/unique';
 import { delay, isDefined } from '../utils/utilities';
 import AnnotationStore from './Annotation/store';
+import SplitDataStore from './splitDataStore';
+import IntegratedStore from './integratedStore';
+import TaggingTaskStore from './taggingTaskStore';
 import Project from './ProjectStore';
 import Settings from './SettingsStore';
 import Task from './TaskStore';
@@ -29,6 +32,31 @@ export default types
      * XML config
      */
     config: types.string,
+
+    /**
+     * XML config
+     */
+    token: types.string,
+    
+    /**
+     * XML config
+    */
+    url: types.string,
+   
+    /**
+      * XML config
+    */
+    taggingTask: types.maybeNull(TaggingTaskStore),
+    
+    /**
+     * XML config
+    */
+    splitData: types.maybeNull(SplitDataStore),
+ 
+    /**
+      * XML config
+    */
+    integrated: types.maybeNull(IntegratedStore),
 
     /**
      * Task with data, id and project
