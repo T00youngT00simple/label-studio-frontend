@@ -44,6 +44,14 @@ const TaskStore = types
         return null;
       }
     },
-  }));
+  })).actions(self => {
+    function resetData (data) {
+      self.data = data;
+    }
+
+    return {
+      resetData
+    }
+  });
 
 export default TaskStore;

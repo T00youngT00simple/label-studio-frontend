@@ -7,8 +7,6 @@ import { EventInvoker } from './utils/events';
 import legacyEvents from './core/External';
 import { toCamelCase } from 'strman';
 import { isDefined } from './utils/utilities';
-import { Hotkey } from './core/Hotkey';
-import defaultOptions from './defaultOptions';
 import { destroy } from 'mobx-state-tree';
 import { destroy as destroySharedStore } from './mixins/SharedChoiceStore/mixin';
 import { MultiProvider } from './providers/MultiProvider';
@@ -27,18 +25,12 @@ export class LabelStudio {
   }
 
   constructor(root, userOptions = {}) {
-    const options = Object.assign({}, defaultOptions, userOptions ?? {});
-
-    if (options.keymap) {
-      Hotkey.setKeymap(options.keymap);
-    }
-
     this.root = root;
     this.events = new EventInvoker();
-    this.options = options ?? {};
+    this.options = userOptions ?? {};
     this.destroy = (() => { /* noop */ });
 
-    this.supportLgacyEvents(options);
+    this.supportLgacyEvents(userOptions);
     this.createApp();
 
     this.constructor.instances.add(this);
@@ -60,9 +52,7 @@ export class LabelStudio {
     const { store, getRoot } = await configureStore(this.options, this.events);
     const rootElement = getRoot(this.root);
 
-    // request get one task
-
-    console.log(store);
+    console.log(this.store);
 
     this.store = store;
     window.Htx = this.store;

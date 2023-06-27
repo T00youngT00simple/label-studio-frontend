@@ -221,6 +221,8 @@ export class APIProxy {
 
         rawResponse = await fetch(apiCallURL, requestParams);
 
+        console.log(rawResponse);
+
         responseMeta = {
           headers: new Map(Array.from(rawResponse.headers)),
           status: rawResponse.status,
@@ -300,7 +302,7 @@ export class APIProxy {
       default:
         return {
           "Content-Type": "application/json",
-          "Domain": window.sessionStorage.hostname,
+          "Domain": window.location.hostname,
           "Token": window.sessionStorage.token
         };
     }

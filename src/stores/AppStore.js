@@ -21,6 +21,7 @@ import { UserLabels } from './UserLabels';
 import { FF_DEV_1536, FF_DEV_2715, FF_LSDV_4998, isFF } from '../utils/feature-flags';
 import { CommentStore } from './Comment/CommentStore';
 import { destroy as destroySharedStore } from '../mixins/SharedChoiceStore/mixin';
+import { callApi } from '../providers/ApiSupport'; 
 
 const hotkeys = Hotkey('AppStore', 'Global Hotkeys');
 
@@ -768,15 +769,56 @@ export default types
       }
     }
 
-    function prevTask(e, shouldGoBack = false) {
-      const length = shouldGoBack ? self.taskHistory.length - 1 : self.taskHistory.findIndex((x) => x.taskId === self.task.id) - 1;
+    function prevTask() {
+      // let params = {};
+      // let urlConfig = '';
 
-      if (self.canGoPrevTask || shouldGoBack) {
-        const { taskId, annotationId } = self.taskHistory[length];
+      // let splitData = self.splitData;
 
-        getEnv(self).events.invoke('prevTask', taskId, annotationId);
-      }
+      // if (String(splitData.onlyView) == 'true') {
+      //   params = {taskId: splitData.taskId};
+      //   urlConfig = 'examineNextTask';
+      
+      // }else {
+      //   if (splitData.taskCategory == "audit") {
+      //     params = {
+      //       level: splitData.level,
+      //       taskId: splitData.taskId,
+      //       abnormalTask: splitData.abnormalTask,
+      //       taskIds: splitData.taskList,
+      //       integrated: self.integrated.toJSON()
+      //     };
+      //     urlConfig = 'labelNextTask';
+
+      //   }else if (splitData.taskCategory == "acceptance") {
+      //     params = {taskId: splitData.taskId};
+      //     urlConfig = 'acNextTask';
+
+      //   }else if (splitData.taskCategory == "label") {
+      //     params = {
+      //       taskId: splitData.taskId,
+      //       abnormalTask: splitData.abnormalTask,
+      //       taskIds: splitData.taskList,
+      //       integrated: self.integrated.toJSON()
+      //     };
+      //     urlConfig = 'labelNextTask';
+
+      //   };
+      // };
+
+      // const nextTaskInfo = await callApi(urlConfig, {
+      //   params: params,
+      // });
+
+      // self.task.resetData(JSON.stringify({
+      //   "video": nextTaskInfo.data.filePath + "?token=" + self.token
+      // }));
+
     }
+
+    // function _refreshTaggingTaskStoreAnd(taggingTaskInfo) {
+
+    // }
 
     function setUsers(users) {
       self.users.replace(users);

@@ -91,21 +91,21 @@
 
 
         //  ----
-        let token = "(cs.luxiaobiao.cn)eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgsIm5hbWUiOiLpgrnpuL_ov5AiLCJwYXNzd2QiOiJwYmtkZjJfc2hhMjU2JDM2MCRGMTVmU0FLUTNQcmwkTzVJRXVFS0pERWxuSnZ6T24zdFlPWVJ1aGoyV2dEN1hWVzBxV01OUG1Vaz0iLCJpc3MiOiIwOThmNmJjZDQ2MjFkMzczY2FkZTRlODMyNjI3YjRmNiIsImF1ZCI6InJlc3RhcGl1c2VyIiwiZXhwIjoxNjg3NzYwMTgyLCJuYmYiOjE2ODc2NzM3ODJ9.CXWp3FTaVkO18l7nKMgfgp-st-KHtSUT5AU8XjVnQNI";
+        let token = "(cs.luxiaobiao.cn)eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgsIm5hbWUiOiLpgrnpuL_ov5AiLCJwYXNzd2QiOiJwYmtkZjJfc2hhMjU2JDM2MCRGMTVmU0FLUTNQcmwkTzVJRXVFS0pERWxuSnZ6T24zdFlPWVJ1aGoyV2dEN1hWVzBxV01OUG1Vaz0iLCJpc3MiOiIwOThmNmJjZDQ2MjFkMzczY2FkZTRlODMyNjI3YjRmNiIsImF1ZCI6InJlc3RhcGl1c2VyIiwiZXhwIjoxNjg3OTE2NzU4LCJuYmYiOjE2ODc4MzAzNTh9.LZ8y_Fpgd7hh0WLDlKe7Ds7Eq_z0vf99ocbQS27F3VA";
 
         let url = "https://cs.luxiaobiao.cn/apis";
 
         sessionStorage.setItem("url", url);
         sessionStorage.setItem("token", token);
 
-        let splitData = {
-          "taskId": 71840,
-          "batchId": "5455",
+        let splitData ={
+          "taskId": 72672,
+          "batchId": "5563",
           "taskCategory": "label",
           "batchType": "标注批次",
           "labelPageId": 2821,
           "onlyView": null,
-          "taskList": "71840",
+          "taskList": "72672,72673,72674,72675",
           "cacheNumber": 3,
           "level": null,
           "abnormalTask": null,
@@ -137,6 +137,14 @@
           "containAcceptanceComment": null
         };
 
+        let interfaces = [
+          'submit',
+          'save',
+          'controls',
+          'topbar',
+          'nextTask',
+        ];
+
         const { taskCategory, taskConfirmation, onlyView, level, batchId, taskId } = splitData;
         const id = !taskConfirmation ? batchId : taskId
         
@@ -155,10 +163,15 @@
           };
           
         } else if(taskCategory == 'audit') {
+          interfaces.shift();
+
+          interfaces.concat(['passTask', 'rejectTask', 'passAllTask', 'rejectAllTask']);
+
           if (taskConfirmation) {
             res = luMiRequest.getOneLaTask(false, 'tagging-task', {
               id: id, onlyRead: onlyView
-            })
+            });
+
           } else {
             res = luMiRequest.getAuTasks(false, 'tagging-task', {
               batchId: id,
@@ -176,10 +189,13 @@
             // template setting
           }
 
+          interfaces.concat(['preTask', 'abnormalTask']);
+
           if (taskConfirmation) {
             res = luMiRequest.getOneLaTask(false, 'tagging-task', {
               id: id, onlyRead: onlyView
-            })
+            });
+
           } else {
             res = luMiRequest.getAuTasks(false, 'tagging-task', {
               batchId: id,
@@ -192,7 +208,7 @@
         }else if(taskCategory == 'arbitration'){
           res = luMiRequest.getOneLaTask(false, 'tagging-task', {
             id: id, onlyRead: onlyView
-          })
+          });
         };
 
         // set url type default url type tagging-task
@@ -203,6 +219,7 @@
           splitData: splitData,
           integrated: integrated,
           description: "Description",
+          interfaces: interfaces,
           config: `<View>
               <Header>Label the video:</Header>
               <Video name="video" value="$video" />

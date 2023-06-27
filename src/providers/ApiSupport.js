@@ -1,14 +1,8 @@
-import { createContext, forwardRef, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { ErrorWrapper } from '../components/Error/Error';
-import { modal } from '../components/Modal/Modal';
 import { API_CONFIG } from '../config/ApiConfig';
 import { APIProxy } from '../utils/api-proxy';
+import { modal } from '../components/Modal/Modal';
 
 const API = new APIProxy(API_CONFIG);
-
-export const ApiContext = createContext();
-ApiContext.displayName = 'ApiContext';
-
 let apiLocked = false;
 
 const errorFormatter = (result) => {
@@ -59,13 +53,9 @@ const handleError = async (response, showModal = true) => {
   return isShutdown;
 };
 
-export const ApiProvider = forwardRef(({children}, ref) => {
-  const [error, setError] = useState(null);
-
-  const callApi = useCallback(async (method, { params = {}, errorFilter, ...rest } = {}) => {
+export const callApi = async (method, { params = {}, errorFilter, ...rest } = {}) => {
     if (apiLocked) return;
 
-    setError(null);
 
     const result = await API[method](params, rest);
 
@@ -75,47 +65,9 @@ export const ApiProvider = forwardRef(({children}, ref) => {
     }
 
     if (result.error) {
-      // pass error
-      // const shouldCatchError = errorFilter?.(result) === false;
-
-      // if (!errorFilter || shouldCatchError){
-      //   setError(result);
-      //   const isShutdown = await handleError(result, contextValue.showModal);
-
-      //   apiLocked = apiLocked || isShutdown;
-
-      //   return null;
-      // }
+      // pass
+      
     }
 
     return result;
-  }, []);
-
-  const contextValue = useMemo(() => ({
-    api: API,
-    callApi,
-    handleError,
-    error,
-    showModal: true,
-    errorFormatter,
-    isValidMethod(...args) {
-      return API.isValidMethod(...args);
-    },
-  }), [error]);
-
-  useEffect(() => {
-    if (ref) {
-      ref.current = contextValue;
-    }
-  }, [ref]);
-
-  return (
-    <ApiContext.Provider value={contextValue}>
-      {children}
-    </ApiContext.Provider>
-  );
-});
-
-export const useAPI = () => {
-  return useContext(ApiContext);
-};
+  };
