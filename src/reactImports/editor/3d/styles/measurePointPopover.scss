@@ -1,0 +1,20 @@
+@import "styles/colors";
+
+.measurePointContent{
+    height: 90px;
+    width: 300px;
+
+    .noneContent{
+        line-height: 90px;
+        text-align: center;
+        color: #b3b3b3;
+    }
+
+    .measurePointInfo{
+        padding-bottom: 10px;
+    }
+}
+
+.measureBtn {
+    margin: 0px 20px;
+}

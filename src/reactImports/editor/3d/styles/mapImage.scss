@@ -1,0 +1,93 @@
+@import "styles/colors";
+
+.mapImageDrag{
+    position: absolute;
+    right: 58px;
+
+    &:hover{
+        cursor: auto;
+    }
+
+    .mapImageDragContent{
+        padding: 10px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 10px;
+  
+        .drag-handler{
+            text-align: center;
+            padding-bottom: 10px;
+            font-size: 16px;
+            color: black;
+
+            &:hover{
+                cursor: move;
+            }
+        }
+
+        img{
+            width: 300px;
+            height: 200px;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        .linkBtnSec{
+            text-align: center;
+
+            .linkBtn{
+                margin: 15px 0px 5px;
+            }
+        }
+
+        .orderSec{
+            text-align: center;
+            margin-top: 10px;
+
+            span{
+                color: black;
+                margin: 0px 4px;
+            }
+
+            .changeOrderIcons{
+                color: black;
+                font-size: 20px;
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+
+}
+
+.mapImageContent{
+    img{
+        width: 300px;
+        height: 200px ;
+    }
+}
+
+.modalContent{
+    width: 852px;
+    height: 600px;
+    margin-top: 23px;
+    overflow: hidden;
+
+    .mask{
+        position: absolute;
+        width: 852px;
+        height: 600px;
+        z-index: 10;
+    }
+
+    img{
+        position: relative;
+        width: 852px;
+        height: 600px;
+    }
+}

@@ -1,0 +1,52 @@
+@import "styles/colors";
+
+.helpCenter{
+    float: right;
+}
+
+.addAuditCommentBtn{
+    position: absolute !important;
+    z-index: 10;
+    right: 160px;
+}
+
+.colorBlock{
+    display: inline-block;
+    width: 30px;
+    border: 1px solid #d9d9d9;
+    height: 14px;
+    border-radius: 4px;
+    margin-left: 8px;
+    transition: all .3s;
+}
+
+.drawerFooter{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e9e9e9;
+    padding: 10px 16px;
+    background: #fff;
+    text-align: right;
+
+    .postBtn{
+        margin-right: 14px;
+    }
+}
+
+.changeSphereDraContent{
+    .ant-row{
+        padding-bottom: 10px;
+    }
+
+    .displayBtnGroup{
+        padding-top: 50px;
+        text-align: center;
+
+        .displayAll{
+            margin-right: 20px;
+        }
+    }
+
+}
