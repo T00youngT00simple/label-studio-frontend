@@ -761,7 +761,7 @@ export default types
       await getEnv(self).events.invoke('nextTask');
     }
 
-    function nextTask() {
+    function prevTask() {
       if (self.canGoNextTask) {
         const { taskId, annotationId } = self.taskHistory[self.taskHistory.findIndex((x) => x.taskId === self.task.id) + 1];
 
@@ -769,56 +769,51 @@ export default types
       }
     }
 
-    function prevTask() {
-      // let params = {};
-      // let urlConfig = '';
+    async function nextTask() {
+      let params = {};
+      let urlConfig = '';
 
-      // let splitData = self.splitData;
+      let splitData = self.splitData;
 
-      // if (String(splitData.onlyView) == 'true') {
-      //   params = {taskId: splitData.taskId};
-      //   urlConfig = 'examineNextTask';
+      if (String(splitData.onlyView) == 'true') {
+        params = {taskId: splitData.taskId};
+        urlConfig = 'examineNextTask';
       
-      // }else {
-      //   if (splitData.taskCategory == "audit") {
-      //     params = {
-      //       level: splitData.level,
-      //       taskId: splitData.taskId,
-      //       abnormalTask: splitData.abnormalTask,
-      //       taskIds: splitData.taskList,
-      //       integrated: self.integrated.toJSON()
-      //     };
-      //     urlConfig = 'labelNextTask';
+      }else {
+        if (splitData.taskCategory == "audit") {
+          params = {
+            level: splitData.level,
+            taskId: splitData.taskId,
+            abnormalTask: splitData.abnormalTask,
+            taskIds: splitData.taskList,
+            integrated: self.integrated.toJSON()
+          };
+          urlConfig = 'labelNextTask';
 
-      //   }else if (splitData.taskCategory == "acceptance") {
-      //     params = {taskId: splitData.taskId};
-      //     urlConfig = 'acNextTask';
+        }else if (splitData.taskCategory == "acceptance") {
+          params = {taskId: splitData.taskId};
+          urlConfig = 'acNextTask';
 
-      //   }else if (splitData.taskCategory == "label") {
-      //     params = {
-      //       taskId: splitData.taskId,
-      //       abnormalTask: splitData.abnormalTask,
-      //       taskIds: splitData.taskList,
-      //       integrated: self.integrated.toJSON()
-      //     };
-      //     urlConfig = 'labelNextTask';
+        }else if (splitData.taskCategory == "label") {
+          params = {
+            taskId: splitData.taskId,
+            abnormalTask: splitData.abnormalTask,
+            taskIds: splitData.taskList,
+            integrated: self.integrated.toJSON()
+          };
+          urlConfig = 'labelNextTask';
 
-      //   };
-      // };
+        };
+      };
 
-      // const nextTaskInfo = await callApi(urlConfig, {
-      //   params: params,
-      // });
+      const nextTaskInfo = await callApi(urlConfig, {
+        params: params,
+      });
 
-      // self.task.resetData(JSON.stringify({
-      //   "video": nextTaskInfo.data.filePath + "?token=" + self.token
-      // }));
-
+      self.task.resetData(JSON.stringify({
+        "video": nextTaskInfo.data.filePath + "?token=" + self.token
+      }));
     }
-
-    // function _refreshTaggingTaskStoreAnd(taggingTaskInfo) {
-
-    // }
 
     function setUsers(users) {
       self.users.replace(users);

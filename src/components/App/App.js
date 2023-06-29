@@ -16,7 +16,6 @@ import Tree from '../../core/Tree';
  * Components
  */
 import { TopBar } from '../TopBar/TopBar';
-import Debug from '../Debug';
 import Segment from '../Segment/Segment';
 import Settings from '../Settings/Settings';
 import { RelationsOverlay } from '../RelationsOverlay/RelationsOverlay';
@@ -114,20 +113,6 @@ class App extends Component {
     return <Result icon={<Spin size="large" />} />;
   }
 
-  _renderAll(obj) {
-    if (obj.length === 1) return <Segment annotation={obj[0]}>{[Tree.renderItem(obj[0].root)]}</Segment>;
-
-    return (
-      <div className="ls-renderall">
-        {obj.map((c, i) => (
-          <div key={`all-${i}`} className="ls-fade">
-            <Segment annotation={c}>{[Tree.renderItem(c.root)]}</Segment>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   _renderUI(root, as) {
     return (
       <>
@@ -148,7 +133,6 @@ class App extends Component {
           </Block>
         )}
         {as.viewingAllAnnotations && this.renderAllAnnotations()}
-        {as.viewingAllPredictions && this.renderAllPredictions()}
       </>
     );
   }
@@ -169,10 +153,6 @@ class App extends Component {
     const cs = this.props.store.annotationStore;
 
     return <Grid store={cs} annotations={[...cs.annotations, ...cs.predictions]} root={cs.root} />;
-  }
-
-  renderAllPredictions() {
-    return this._renderAll(this.props.store.annotationStore.predictions);
   }
 
   renderRelations(selectedStore) {
@@ -275,33 +255,33 @@ class App extends Component {
                 </SidePanels>
               )
             ) : (
-              <>
-                {mainContent}
+              <div></div>
+              // <>
+              //   {mainContent}
 
-                {viewingAll === false && (
-                  <Block name="menu" mod={{ bsp: settings.bottomSidePanel }}>
-                    {store.hasInterface('side-column') && (
-                      <SidebarTabs active="annotation">
-                        <SidebarPage name="annotation" title="Annotation">
-                          <AnnotationTab store={store} />
-                        </SidebarPage>
+              //   {viewingAll === false && (
+              //     <Block name="menu" mod={{ bsp: settings.bottomSidePanel }}>
+              //       {store.hasInterface('side-column') && (
+              //         <SidebarTabs active="annotation">
+              //           <SidebarPage name="annotation" title="Annotation">
+              //             <AnnotationTab store={store} />
+              //           </SidebarPage>
 
-                        {this.props.panels.map(({ name, title, Component }) => (
-                          <SidebarPage key={name} name={name} title={title}>
-                            <Component />
-                          </SidebarPage>
-                        ))}
-                      </SidebarTabs>
-                    )}
-                  </Block>
-                )}
+              //           {this.props.panels.map(({ name, title, Component }) => (
+              //             <SidebarPage key={name} name={name} title={title}>
+              //               <Component />
+              //             </SidebarPage>
+              //           ))}
+              //         </SidebarTabs>
+              //       )}
+              //     </Block>
+              //   )}
 
-                {newUIEnabled && isDefined(store) && store.hasInterface('topbar') && <BottomBar store={store} />}
-              </>
+              //   {newUIEnabled && isDefined(store) && store.hasInterface('topbar') && <BottomBar store={store} />}
+              // </>
             )}
           </Block>
         </Provider>
-        {store.hasInterface('debug') && <Debug store={store} />}
       </Block>
     );
   }

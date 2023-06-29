@@ -357,6 +357,11 @@ const Model = types
       findRegion(id) {
         return self.regs.find(reg => reg.cleanId === id);
       },
+
+      refreshUrl(url) {
+        return self._value = url;
+      }
+
     };
   });
 

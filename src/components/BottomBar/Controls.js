@@ -25,28 +25,31 @@ const ButtonTooltip = inject('store')(observer(({ store, title, children }) => {
 const controlsInjector = inject(({ store }) => {
   return {
     store,
-    history: store?.annotationStore?.selected?.history,
   };
 });
 
-export const Controls = controlsInjector(observer(({ store, history, annotation }) => {
+export const Controls = controlsInjector(observer(({ store, annotation }) => {
   const buttons = [];
 
-  if ( store.hasInterface('submit')) {
+  if (store.interfaces.length == 0) {
+    return;
+  }
+
+  if (store.hasInterface('submit')) {
     buttons.push(
-      <ButtonTooltip key="submit" title={"sdf"}>
+      <ButtonTooltip key="next-one" title={"sdf"}>
         <Elem name="tooltip-wrapper">
-          <Button aria-label="submit" onClick={() => {
-            store.addInterface('skip');
+          <Button aria-label="next-one" onClick={async () => {
+            store.nextTask();
           }}>
-            Submit
+            Next One
           </Button>
         </Elem>
       </ButtonTooltip>,
     );
   }
 
-  if ( store.hasInterface('skip')) {
+  if (store.hasInterface('skip')) {
     buttons.push(
       <ButtonTooltip key="skip" title={"sdf"}>
         <Elem name="tooltip-wrapper">

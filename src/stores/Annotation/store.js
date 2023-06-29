@@ -202,7 +202,7 @@ const AnnotationStoreModel = types
     }
 
     function initRoot(config) {
-      if (self.root) return;
+      // if (self.root) return;
 
       if (!config) {
         return (self.root = ViewModel.create({ id: 'empty' }));

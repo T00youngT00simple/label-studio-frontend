@@ -101,7 +101,12 @@ function useZoom(videoDimensions, canvasDimentions, shouldClampPan) {
 
 const HtxVideoView = ({ item, store }) => {
   if (!item._value) return null;
+  
+  const src = JSON.parse(store.task.data).video;
 
+  item.refreshUrl(src);
+  console.log(item)
+  
   const limitCanvasDrawingBoundaries = !store.settings.videoDrawOutside;
   const videoBlockRef = useRef();
   const stageRef = useRef();
@@ -156,7 +161,7 @@ const HtxVideoView = ({ item, store }) => {
     container.addEventListener('wheel', cancelWheel);
 
     return () => container.removeEventListener('wheel', cancelWheel);
-  }, []);
+  }, [item._value]);
 
   useEffect(() => {
     const onResize = () => {
@@ -203,7 +208,7 @@ const HtxVideoView = ({ item, store }) => {
       observer.unobserve(vBlock);
       observer.disconnect();
     };
-  }, []);
+  }, [item._value]);
 
   useEffect(() => {
     const fullscreenElement = fullscreen.getElement();
@@ -314,7 +319,7 @@ const HtxVideoView = ({ item, store }) => {
 
   const handleVideoResize = useCallback((videoDimensions) => {
     setVideoDimensions(videoDimensions);
-  }, []);
+  }, [item._value]);
 
   const handleVideoEnded = useCallback(() => {
     setPlaying(false);
@@ -351,7 +356,7 @@ const HtxVideoView = ({ item, store }) => {
         return _playing;
       }
     });
-  }, []);
+  }, [item._value]);
 
   const handlePause = useCallback(() => {
     setPlaying((_playing) => {
@@ -381,7 +386,7 @@ const HtxVideoView = ({ item, store }) => {
         return _playing;
       }
     });
-  }, []);
+  }, [item._value]);
 
 
   const handleSelectRegion = useCallback((_, id, select) => {
@@ -423,7 +428,7 @@ const HtxVideoView = ({ item, store }) => {
 
   useEffect(() => () => {
     item.ref.current = null;
-  }, []);
+  }, [item._value]);
 
   const regions = item.regs.map(reg => {
     const color = reg.style?.fillcolor ?? reg.tag?.fillcolor ?? defaultStyle.fillcolor;

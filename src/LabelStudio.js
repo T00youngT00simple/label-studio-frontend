@@ -52,8 +52,6 @@ export class LabelStudio {
     const { store, getRoot } = await configureStore(this.options, this.events);
     const rootElement = getRoot(this.root);
 
-    console.log(this.store);
-
     this.store = store;
     window.Htx = this.store;
 

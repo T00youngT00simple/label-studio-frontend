@@ -36,7 +36,7 @@ class Item extends Component {
   }
 
   render() {
-    return <Annotation root={this.props.root} annotation={this.props.annotation} />;
+    return null;
   }
 }
 
@@ -168,23 +168,6 @@ export default class Grid extends Component {
                 bordered={false}
                 style={{ height: 44 }}
               />
-              {isFF(FF_DEV_3391)
-                ? <Annotation root={this.props.root} annotation={c} />
-                : !this.state.loaded.has(c.id) && (
-                  <div style={{
-                    top: 0,
-                    left: 0,
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    <Spin size="large" />
-                  </div>
-                )
-              }
             </div>
           ))}
           {isRenderingNext && (

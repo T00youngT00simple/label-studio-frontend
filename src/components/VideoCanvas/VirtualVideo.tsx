@@ -199,7 +199,7 @@ export const VirtualVideo = forwardRef<HTMLVideoElement, VirtualVideoProps>((pro
       video.current?.remove();
       video.current = null;
     };
-  }, []);
+  }, [props.src]);
 
   useEffect(() => {
     if (video.current && props.muted !== undefined) {
